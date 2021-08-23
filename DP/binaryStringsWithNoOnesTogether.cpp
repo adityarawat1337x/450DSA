@@ -88,6 +88,6 @@ int main()
  for(int it=1;it<=t;it++) {
     cout << "Case #" << it << ": ";
     solve();
-
+ }
  return 0;
 }
