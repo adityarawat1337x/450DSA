@@ -7,7 +7,8 @@ void solve(int n){
     if(n==0 || n==1)
         dp[n]=n;
     else{
-        solve(n-1);
+        if(!dp[n-1])
+            solve(n-1);
         dp[n]=dp[n-1]+dp[n-2];
     }
 }
