@@ -2,16 +2,7 @@
 
 using namespace std;
 
-int parent[100000], ranks[100000];
-
-void makeSet(int n)
-{
-    for (int i = 0; i < n; i++){
-        parent[i] = i;
-        ranks[i] = 0;
-    }
-}
-
+vector<int> parent, ranks;
 
 int findParent(int node){
     if(node==parent[node])
