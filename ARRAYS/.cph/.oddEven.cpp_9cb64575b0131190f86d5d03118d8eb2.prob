@@ -1,1 +1,0 @@
-{"name":"Local: oddEven","url":"/data/NAPSTER_LABS/DS ALGO/ARRAYS/oddEven.cpp","tests":[{"id":1616301804593,"input":"[8, 13, 11, 90, -5, 4]","output":"[4, 13, 11, 8, -5, 90]"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/data/NAPSTER_LABS/DS ALGO/ARRAYS/oddEven.cpp","group":"local","local":true}
