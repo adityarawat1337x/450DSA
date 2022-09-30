@@ -1,23 +1,33 @@
 class Solution {
 public:
     int count(vector<int> &m){
-        int res=0,prev=0;
+        stack<int> s;
+        int res=0;
+        vector<int> sum(m.size());
         for(int i=0;i<m.size();i++){
-            prev=(m[i]==0)?0:prev+1;
-            res+=prev;
+            while(!s.empty() and m[s.top()]>=m[i]) s.pop();
+            
+            if(s.empty()){
+                sum[i]=m[i]*(i+1);
+            }else{
+                sum[i]=(i-s.top())*m[i];
+                sum[i]+=sum[s.top()];
+            }
+            
+            s.push(i);
         }
+        for(auto &i:sum) res+=i;
+        
         return res;
     }
     int numSubmat(vector<vector<int>>& mat) {
+        vector<int> m(mat[0].size());
         int res=0;
-        for(int r1=0;r1<mat.size();r1++){
-            vector<int> m(mat[0].size(),1);
-            for(int r2=r1;r2<mat.size();r2++){
-                for(int c=0;c<mat[0].size();c++){
-                    m[c]&=mat[r2][c];
-                }
-                res+=count(m);
-            }
+        
+        for(int r=0;r<mat.size();r++){
+            for(int c=0;c<mat[0].size();c++)
+                m[c]=(mat[r][c]==0)?0:m[c]+1;
+            res+=count(m);
         }
         
         return res;
