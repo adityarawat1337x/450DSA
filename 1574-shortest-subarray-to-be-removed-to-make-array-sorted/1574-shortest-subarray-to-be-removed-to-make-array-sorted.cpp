@@ -1,21 +1,36 @@
 class Solution {
 public:
-    int findLengthOfShortestSubarray(vector<int>& arr) {
-        int n = arr.size(), left = 0, right = n - 1;
-        while(left < right && arr[left] <= arr[left+1])
-            left++;
-        if(left == right)
-            return 0;
-        while(right > 0 && arr[right] >= arr[right-1])
-            right--;
-        int ans = min(right, n - left - 1);
-        int i = 0, j = right;
-        while(i <= left && j < n){
-            while(arr[i] <= arr[j] && i <= left)
-                i++;
-            ans = min(ans, j - i);
-            j++;
+    int check(vector<int> front,vector<int> back){
+        int idx=-1,maxS=0;
+        for(int i=0;i<back.size();i++){
+            int up = upper_bound(front.begin(),front.end(),back[i])-front.begin();
+            if(up+i+1>maxS){
+                cout<<idx<<" "<<up+i+1<<", ";
+                maxS=up+i+1;
+                idx=up;
+            }
         }
-        return ans;
+        while(front.size()>idx) front.pop_back();
+        while(front.size() and back.size() and front.back()>back.back()) back.pop_back(); 
+        return front.size()+back.size();
+    }
+
+    int findLengthOfShortestSubarray(vector<int>& arr) {
+ 
+        vector<int> front,back;
+        int j=0;
+        for(j=0;j<arr.size();j++){
+            if(front.size()==0 or front.back()<=arr[j]) front.push_back(arr[j]);
+            else break;
+        }
+        
+        if(front.size()==arr.size()) return 0;
+        
+        for(int i=arr.size()-1;i>=j;i--){
+            if(back.size()==0 or back.back()>=arr[i]) back.push_back(arr[i]);
+            else break;
+        }
+        
+        return arr.size()-max({(int)check(front,back),(int)front.size(),(int)back.size()});
     }
 };
